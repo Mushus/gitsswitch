@@ -2,6 +2,10 @@
 
 switch ssh identify files by your repository in git command
 
+## Use Case
+
+* Private repository がたくさんあると Deploy Key 使うのが大変
+
 ## install
 
 ```
@@ -41,6 +45,10 @@ github.com:
     identityFile: ~/.ssh/mushus_rsa
   Mushus/gitsswitch:
     identityFile: ~/.ssh/mushis_hoge_rsa
+```
+
+```
+git clone git@github.com:hoge/fuga.git
 ```
 
 ## build
