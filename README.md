@@ -54,9 +54,9 @@ git clone git@github.com:hoge/fuga.git
 ## build
 
 ```
-# for your environment
-$ go build github.com/Mushus/gitsswitch
+# for macOS
+$ GOOS=darwin GOARCH=amd64 go build github.com/Mushus/gitsswitch -o gitsswitch-darwin-amd64
 
 # for linux
-$ GOOS=linux GOARCH=amd64 go build github.com/Mushus/gitsswitch
+$ GOOS=linux GOARCH=amd64 go build github.com/Mushus/gitsswitch -o gitsswitch-linux-amd64
 ```
