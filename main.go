@@ -6,15 +6,14 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"os/user"
+	"path/filepath"
 	"reflect"
 	"regexp"
+	"runtime"
 	"strings"
 
 	yaml "gopkg.in/yaml.v2"
 )
-
-const configPath = "~/.gitsswitch/config.yml"
 
 func main() {
 	args := os.Args
@@ -70,14 +69,11 @@ type (
 )
 
 func loadConfig() config {
-	usr, err := user.Current()
-	if err != nil {
-		log.Fatalf("cannot get home directory: %v", err)
-	}
-	f := strings.Replace(configPath, "~", usr.HomeDir, 1)
+	configPath := filepath.Join(userHomeDir(), ".gitsswitch", "config.yml")
 
 	var cfg config
-	b, err := ioutil.ReadFile(f)
+	log.Println(configPath)
+	b, err := ioutil.ReadFile(configPath)
 	if err != nil {
 		log.Fatalf("cannot open config: path:%s :%v", configPath, err)
 	}
@@ -155,4 +151,15 @@ func findMatchConfig(cfg config, target sshTarget) repoConfig {
 		break
 	}
 	return resCfg
+}
+
+func userHomeDir() string {
+	if runtime.GOOS == "windows" {
+		home := os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH")
+		if home == "" {
+			home = os.Getenv("USERPROFILE")
+		}
+		return home
+	}
+	return os.Getenv("HOME")
 }
