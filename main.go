@@ -39,7 +39,7 @@ func main() {
 		sshArgs = append([]string{"-i", repoCfg.IdentityFile}, sshArgs...)
 	}
 
-	//log.Printf("%#v", sshArgs)
+	// log.Printf("%#v", sshArgs)
 	cmd := exec.Command("ssh", sshArgs...)
 	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr
@@ -72,7 +72,7 @@ func loadConfig() config {
 	configPath := filepath.Join(userHomeDir(), ".gitsswitch", "config.yml")
 
 	var cfg config
-	log.Println(configPath)
+	// log.Println(configPath)
 	b, err := ioutil.ReadFile(configPath)
 	if err != nil {
 		log.Fatalf("cannot open config: path:%s :%v", configPath, err)
@@ -153,6 +153,7 @@ func findMatchConfig(cfg config, target sshTarget) repoConfig {
 	return resCfg
 }
 
+// ホームディレクトリを取得する
 func userHomeDir() string {
 	if runtime.GOOS == "windows" {
 		home := os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH")
